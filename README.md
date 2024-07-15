@@ -1,6 +1,12 @@
 # Kabufuda Solitare Bot
 A bot made to speedrun Kabufuda Solitare from Last Call BBS
 
+## Announcement
+**Quick Fix:** Code has been modified to save the solution steps to a `solution.txt` file. Now, instead of performing in-game clicks or movements, the bot records the steps needed to solve the game, making it easier to follow along manually.
+
+### Note
+The following sections are from the original README file and repository.
+
 ## How to Use
 ### Prerequisites
 1. [Python 3.9](https://www.python.org/downloads/release/python-390/) (Other Python versions should also work)
