@@ -4,8 +4,9 @@
 import pyautogui as guilib
 import numpy as np
 import mss, os, time
+import cv2 as cv
+from matplotlib import pyplot as plt
 
-from pyrsistent import b
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 import read, solve
@@ -38,6 +39,19 @@ def inputSln(sln, topleft):
         else:
             click(topleft[0] + read.spotroffset * loc[1] + read.spotloffset, topleft[1] + read.spotyoffset)
 
+def export_solution_to_txt(sln, filename='solution.txt'):
+    steps = []
+    def collect_steps(solution):
+        if solution.parent:
+            collect_steps(solution.parent)
+        steps.append(f"Move from {solution.fromAction} to {solution.toAction}")
+
+    collect_steps(sln)
+
+    with open(filename, 'w') as f:
+        for step in steps:
+            f.write(step + '\n')
+
 def main():
     guilib.PAUSE = 0.015
     time.sleep(5)
@@ -51,10 +65,10 @@ def main():
         time.sleep(6)
 
         board, topleft = read.getBoard()
-        print(board)
+        print(f"Read board: {board}")
         sln = solve.solveGame(board)
         if sln is not None:
-            inputSln(sln, topleft)
+            export_solution_to_txt(sln)
 
 if __name__ == '__main__':
     main()
